@@ -29,10 +29,21 @@ public class TutorialController {
 	@Autowired
 	TutorialRepository tutorialRepository;
 
+	private class Dummy{
+		public Dummy(String param1){
+			this.nombre = param1;
+		}
+		private String nombre;
+		public String getNombre(){
+			return nombre;
+		}
+	}
+
 	@GetMapping("/yo")
-	public ResponseEntity<String> getYo(@RequestParam(required = false) String title) {
+	public ResponseEntity<Dummy> getYo(@RequestParam(required = false) String title) {
 		String texto = "text";
-			return new ResponseEntity<>(title, HttpStatus.OK);
+		Dummy dummy = new Dummy(title+"n");
+			return new ResponseEntity<>(dummy, HttpStatus.OK);
 		/*TODO crear una interface con unos campos base, y vamos a usarlo como dto de entrada en un servicio post
 		haremos un instanceOf para ver el tipo de dto que dice que es, luego creamos dos clase que implementarán
 		de esa interfaz y añadiran nuevos campos y haremos lo mismo, pero variando los datos que llegan desde
