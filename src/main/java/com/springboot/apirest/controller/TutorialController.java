@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.model.Tutorial;
+import com.springboot.apirest.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -143,5 +145,14 @@ public class TutorialController {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	@Autowired
+	private ReservaService reservasService;
+
+	@GetMapping("reservas")
+	public List<Reserva> getReservas() {
+		return reservasService.listarReservas();
+	}
+	
 
 }

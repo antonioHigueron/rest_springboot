@@ -1,0 +1,49 @@
+package com.springboot.apirest.controller;
+
+
+import com.springboot.apirest.dao.Reserva;
+import com.springboot.apirest.service.ReservaService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/reservas")
+public class ReservasController {
+    @Autowired
+    private ReservaService reservasService;
+
+    @GetMapping
+    public List<Reserva> getReservas() {
+        return reservasService.listarReservas();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Reserva> getHistoricoReservaById(@PathVariable Integer id) {
+        return reservasService.obtenerReservaPorId(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PostMapping
+    public Reserva createReserva(@RequestBody Reserva reserva) {
+        return reservasService.guardarReserva(reserva);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Reserva> updateReserva(@PathVariable Integer id, @RequestBody Reserva reserva) {
+        return reservasService.actualizarReserva(id, reserva)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteHistoricoReserva(@PathVariable Integer id) {
+        if (reservasService.eliminarReserva(id)) {
+            return ResponseEntity.ok().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+}

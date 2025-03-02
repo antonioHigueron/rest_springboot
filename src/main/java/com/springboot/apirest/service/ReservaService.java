@@ -12,10 +12,39 @@ import java.util.Optional;
 @Service
 public class ReservaService {
     private final ReservaRepository reservaRepository;
-    public ReservaService(ReservaRepository reservaRepository) { this.reservaRepository = reservaRepository; }
-    public List<Reserva> listarReservas() { return reservaRepository.findAll(); }
-    public Optional<Reserva> obtenerReservaPorId(Integer id) { return reservaRepository.findById(id); }
-    public Reserva guardarReserva(Reserva reserva) { return reservaRepository.save(reserva); }
-    public void eliminarReserva(Integer id) { reservaRepository.deleteById(id); }
+
+    public ReservaService(ReservaRepository reservaRepository) {
+        this.reservaRepository = reservaRepository;
+    }
+
+    public List<Reserva> listarReservas() {
+        return reservaRepository.findAll();
+    }
+
+    public Optional<Reserva> obtenerReservaPorId(Integer id) {
+        return reservaRepository.findById(id);
+    }
+
+    public Reserva guardarReserva(Reserva reserva) {
+        return reservaRepository.save(reserva);
+    }
+
+    public Optional<Reserva> actualizarReserva(Integer id, Reserva reserva) {
+        if (reservaRepository.existsById(id)){
+            reserva.setIdReserva(id);
+            return Optional.of(reservaRepository.save(reserva));
+        }
+        return Optional.empty();
+    }
+
+    public boolean eliminarReserva(Integer id) {
+        if(reservaRepository.existsById(id)){
+            reservaRepository.deleteById(id);
+            return true;
+        }
+        return false;
+
+
+    }
 }
 
