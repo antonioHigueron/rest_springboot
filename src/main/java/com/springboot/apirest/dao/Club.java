@@ -15,4 +15,5 @@ public class Club {
     private String ubicacion;
     private String nombre;
     private String telefono;
+
 }
