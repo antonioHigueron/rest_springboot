@@ -1,5 +1,7 @@
 package com.springboot.apirest.model;
 
+//import jakarta.persistence.Entity;
+
 import javax.persistence.*;
 
 @Entity

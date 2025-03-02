@@ -1,6 +1,6 @@
 package com.springboot.apirest.dao;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
