@@ -1,0 +1,23 @@
+package com.springboot.apirest.dao;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Table(name = "pistas")
+@Getter
+@Setter
+public class Pista {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idPista;
+    private String nombrePista;
+    private String ubicacion;
+    private String tipoPista;
+    private String estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_club")
+    private Club club;
+}
