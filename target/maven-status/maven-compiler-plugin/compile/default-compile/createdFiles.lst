@@ -11,6 +11,7 @@ com\springboot\apirest\controller\AuthController.class
 com\springboot\apirest\controller\HistoricoReservasController.class
 com\springboot\apirest\repository\HistoricoReservaRepository.class
 com\springboot\apirest\repository\ClubRepository.class
+com\springboot\apirest\security\WebConfig.class
 com\springboot\apirest\dao\Club.class
 com\springboot\apirest\repository\TutorialRepository.class
 com\springboot\apirest\controller\PistaController.class
