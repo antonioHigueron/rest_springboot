@@ -1,6 +1,6 @@
 package com.springboot.apirest.controller;
 
-import com.springboot.apirest.dao.Usuario;
+import com.springboot.apirest.model.Usuario;
 import com.springboot.apirest.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

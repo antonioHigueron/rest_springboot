@@ -1,6 +1,6 @@
 package com.springboot.apirest.service;
 
-import com.springboot.apirest.dao.Usuario;
+import com.springboot.apirest.model.Usuario;
 import com.springboot.apirest.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;

@@ -17,7 +17,7 @@ public class Reserva {
 
     @ManyToOne
     @JoinColumn(name = "id_usuario")
-    private Usuario usuario;
+    private UsuarioOLD usuario;
 
     @ManyToOne
     @JoinColumn(name = "id_pista")

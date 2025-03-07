@@ -1,6 +1,12 @@
 package com.springboot.apirest.repository;
 
-import com.springboot.apirest.dao.Usuario;
+import com.springboot.apirest.model.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {}
+import java.util.Optional;
+
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
+
+    Optional<Usuario> findByEmail(String email);
+
+}

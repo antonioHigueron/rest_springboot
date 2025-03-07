@@ -1,12 +1,14 @@
 com\springboot\apirest\repository\ReservaRepository.class
+com\springboot\apirest\util\JwtUtil.class
 com\springboot\apirest\controller\TutorialController.class
 com\springboot\apirest\service\ClubService.class
 com\springboot\apirest\service\PistaService.class
 com\springboot\apirest\service\ReservaService.class
 com\springboot\apirest\controller\ClubController.class
 com\springboot\apirest\service\HistoricoReservaService.class
+com\springboot\apirest\dao\UsuarioOLD.class
 com\springboot\apirest\security\SecurityConfig.class
-com\springboot\apirest\dao\Usuario.class
+com\springboot\apirest\service\AuthService.class
 com\springboot\apirest\controller\AuthController.class
 com\springboot\apirest\controller\HistoricoReservasController.class
 com\springboot\apirest\repository\HistoricoReservaRepository.class
@@ -22,6 +24,7 @@ com\springboot\apirest\SpringBootJpaH2Application.class
 com\springboot\apirest\service\UsuarioService.class
 com\springboot\apirest\dao\Pista.class
 com\springboot\apirest\controller\ReservasController.class
+com\springboot\apirest\model\Usuario.class
 com\springboot\apirest\model\Tutorial.class
 com\springboot\apirest\repository\UsuarioRepository.class
 com\springboot\apirest\repository\PistaRepository.class
