@@ -4,6 +4,7 @@ package com.springboot.apirest.service;
 import com.springboot.apirest.dao.Usuario;
 //import com.springboot.auth.repository.UsuarioRepository;
 //import com.springboot.auth.security.JwtUtil;
+import com.springboot.apirest.dto.Token;
 import  com.springboot.apirest.util.JwtUtil;
 import com.springboot.apirest.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,14 +23,16 @@ public class AuthService {
 
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public String login(String email, String password) throws Exception {
+    public Token login(String email, String password) throws Exception {
         Optional<Usuario> usuarioOpt = usuarioRepository.findByEmail(email);
+        final Usuario usuario;
         if (usuarioOpt.isPresent()) {
-            Usuario usuario = usuarioOpt.get();
+            usuario = usuarioOpt.get();
             String passwordEncrypted = passwordEncoder.encode(usuario.getContrasena());
             // Verificar la contraseña encriptada
             if (passwordEncoder.matches(password, passwordEncrypted)) {
-                return jwtUtil.generarToken(email); // Generar JWT
+                //return new Object(){String token3=jwtUtil.generarToken(email);String usuario2= usuario.getNombre();};   // Generar JWT, necesito una clase, porque si es serializable para mandarla por http
+                return  new Token(jwtUtil.generarToken(email),usuario);  // Generar JWT, necesito una clase, porque si es serializable para mandarla por http
             } else {
                 throw new Exception("Credenciales incorrectas");
             }
