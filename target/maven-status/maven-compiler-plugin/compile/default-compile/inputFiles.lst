@@ -1,4 +1,5 @@
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\SpringBootJpaH2Application.java
+C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\AuthService.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\controller\ClubController.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\repository\UsuarioRepository.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\dao\HistoricoReserva.java
@@ -9,6 +10,7 @@ C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springbo
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\repository\ReservaRepository.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\UsuarioService.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\controller\UsuarioController.java
+C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\util\JwtUtil.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\PistaService.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\dao\Usuario.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\ClubService.java

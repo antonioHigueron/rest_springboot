@@ -1,4 +1,5 @@
 com\springboot\apirest\repository\ReservaRepository.class
+com\springboot\apirest\util\JwtUtil.class
 com\springboot\apirest\controller\TutorialController.class
 com\springboot\apirest\service\ClubService.class
 com\springboot\apirest\service\PistaService.class
@@ -7,6 +8,7 @@ com\springboot\apirest\controller\ClubController.class
 com\springboot\apirest\service\HistoricoReservaService.class
 com\springboot\apirest\security\SecurityConfig.class
 com\springboot\apirest\dao\Usuario.class
+com\springboot\apirest\service\AuthService.class
 com\springboot\apirest\controller\AuthController.class
 com\springboot\apirest\controller\HistoricoReservasController.class
 com\springboot\apirest\repository\HistoricoReservaRepository.class
