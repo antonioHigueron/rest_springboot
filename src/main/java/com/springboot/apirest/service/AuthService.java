@@ -1,7 +1,7 @@
 package com.springboot.apirest.service;
 
 
-import com.springboot.apirest.model.Usuario;
+import com.springboot.apirest.dao.Usuario;
 //import com.springboot.auth.repository.UsuarioRepository;
 //import com.springboot.auth.security.JwtUtil;
 import  com.springboot.apirest.util.JwtUtil;

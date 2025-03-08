@@ -1,36 +1,47 @@
 package com.springboot.apirest.dao;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "historico_reservas")
-@Getter
-@Setter
+@Getter @Setter @NoArgsConstructor
 public class HistoricoReserva {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idHistorico;
 
     @ManyToOne
-    @JoinColumn(name = "id_reserva")
+    @JoinColumn(name = "id_reserva", nullable = false)
     private Reserva reserva;
 
     @ManyToOne
-    @JoinColumn(name = "id_usuario")
-    private UsuarioOLD usuario;
+    @JoinColumn(name = "id_usuario", nullable = false)
+    private Usuario usuario;
 
     @ManyToOne
-    @JoinColumn(name = "id_pista")
+    @JoinColumn(name = "id_pista", nullable = false)
     private Pista pista;
 
-    private Date fechaReserva;
-    private String horaInicio;
-    private String horaFin;
+    @Column(nullable = false)
+    private LocalDate fechaReserva;
+
+    @Column(nullable = false)
+    private LocalTime horaInicio;
+
+    @Column(nullable = false)
+    private LocalTime horaFin;
+
+    @Column(nullable = false, length = 20)
     private String estado;
+
     private Integer contadorModificaciones;
-    private Date fechaModificacion;
+
+    @Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
+    private LocalDateTime fechaModificacion;
 }
