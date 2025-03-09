@@ -30,7 +30,8 @@ public class PistaController {
     public ResponseEntity<List<Pista>> getPistaByIdClub(@PathVariable Integer idClub, @PathVariable String fecha, @PathVariable String hora) {
         List<Pista> pistas = pistaService.getPistaByIdClub(idClub, fecha,hora+":00");
         if (pistas.isEmpty()) {
-            return ResponseEntity.notFound().build();  // No reservas encontradas
+            //return ResponseEntity.notFound().build();  // No reservas encontradas
+            return ResponseEntity.ok(pistas);  // Devolver las reservas encontradas, puede ser una lista vacia.
         }
         return ResponseEntity.ok(pistas);  // Devolver las reservas encontradas
 

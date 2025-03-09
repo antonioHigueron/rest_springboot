@@ -43,7 +43,7 @@ public class ReservaService {
        /* return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualOrFechaReservaAndHoraFinGreaterThan(
                 usuario, fechaActual, fechaActual, horaActual
         );*/
-        return reservaRepository.findByUsuarioAndFechaReservaAndHoraInicioGreaterThan(
+        return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(
                 usuario, fechaActual, horaActual
         );
     }

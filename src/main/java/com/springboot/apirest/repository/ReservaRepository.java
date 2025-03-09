@@ -19,7 +19,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
             Usuario usuario, Date fechaReserva, Date fechaReserva2, String horaFin
     );
 
-    List<Reserva> findByUsuarioAndFechaReservaAndHoraInicioGreaterThan(
+    List<Reserva> findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(
             Usuario usuario, Date fechaReserva, String horaFin
     );
 

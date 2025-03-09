@@ -7,6 +7,7 @@ import com.springboot.apirest.repository.PistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,15 +27,19 @@ public class PistaService {
 
     public List<Pista> getPistaByIdClub(Integer id, String fecha, String hora) {
         List<Pista> pistas = pistaRepository.findByClub_IdClub(id);
+        List<Pista> pistaList = new ArrayList<>();
         //pistas.removeIf(pista -> (pista.getEstado().equals("No Disponible") && pista.getFechaHora().equals("2024-03-09 18:30:00")) );
         //pistas.removeIf(pista -> pista.getFechaHora().equals("2024-03-09 18:30:00") );
         for (int i = 0; i < pistas.size(); i++) {
             //if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals("2024-03-09 18:30:00") ){
-            if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals(fecha+" "+hora) ){
-                pistas.remove(pistas.get(i));
+            if (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) ){
+                pistaList.add(pistas.get(i));
+                if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals(fecha+" "+hora) ){
+                    pistaList.remove(pistas.get(i));
+                }
             }
         }
-        return pistas;
+        return pistaList;
     }
 
     public Pista createPista(Pista pista) {
