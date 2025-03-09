@@ -4,6 +4,8 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Date;
+
 @Entity
 @Table(name = "pistas")
 @Getter
@@ -16,6 +18,7 @@ public class Pista {
     private String ubicacion;
     private String tipoPista;
     private String estado;
+    private String fechaHora;
 
     @ManyToOne
     @JoinColumn(name = "id_club")

@@ -26,6 +26,16 @@ public class PistaController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    @GetMapping("/club/{idClub}/{fecha}/{hora}")
+    public ResponseEntity<List<Pista>> getPistaByIdClub(@PathVariable Integer idClub, @PathVariable String fecha, @PathVariable String hora) {
+        List<Pista> pistas = pistaService.getPistaByIdClub(idClub, fecha,hora+":00");
+        if (pistas.isEmpty()) {
+            return ResponseEntity.notFound().build();  // No reservas encontradas
+        }
+        return ResponseEntity.ok(pistas);  // Devolver las reservas encontradas
+
+    }
+
     @PostMapping
     public Pista createPista(@RequestBody Pista pista) {
         return pistaService.createPista(pista);
