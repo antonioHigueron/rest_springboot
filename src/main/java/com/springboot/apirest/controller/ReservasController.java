@@ -20,11 +20,19 @@ public class ReservasController {
         return reservasService.listarReservas();
     }
 
+    /**
+     * Obtener la lista de reservas por usuario.
+     *
+     * @param id
+     * @return
+     */
     @GetMapping("/{id}")
-    public ResponseEntity<Reserva> getHistoricoReservaById(@PathVariable Integer id) {
-        return reservasService.obtenerReservaPorId(id)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    public ResponseEntity<List<Reserva>> getReservaById(@PathVariable Integer id) {
+        List<Reserva> reservas = reservasService.obtenerReservasDisponibles(id);
+        if (reservas.isEmpty()) {
+            return ResponseEntity.notFound().build();  // No reservas encontradas
+        }
+        return ResponseEntity.ok(reservas);  // Devolver las reservas encontradas
     }
 
     @PostMapping
