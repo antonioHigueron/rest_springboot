@@ -1,3 +1,4 @@
+com\springboot\apirest\dto\Token.class
 com\springboot\apirest\repository\ReservaRepository.class
 com\springboot\apirest\util\JwtUtil.class
 com\springboot\apirest\controller\TutorialController.class
