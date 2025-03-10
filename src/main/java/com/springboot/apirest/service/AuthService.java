@@ -28,6 +28,7 @@ public class AuthService {
         final Usuario usuario;
         if (usuarioOpt.isPresent()) {
             usuario = usuarioOpt.get();
+
             String passwordEncrypted = passwordEncoder.encode(usuario.getContrasena());
             // Verificar la contraseña encriptada
             if (passwordEncoder.matches(password, passwordEncrypted)) {
