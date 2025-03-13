@@ -26,11 +26,9 @@ public class Usuario {
     private String club;
     //esto sirve para que no se mapee con la entidad de basedatos a la que se vincula
     @Transient
-    private List<String> nombrePistas;
+    private List<PistaDto> nombrePistas;
     private String pistas;
     private String ubicacion;
 
-    @Transient
-    private PistaDto pistaDto;
 
 }

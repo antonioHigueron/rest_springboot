@@ -12,7 +12,7 @@ import java.sql.Date;
 @Setter
 public class Pista {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idPista;
     private String nombrePista;
     private String ubicacion;
