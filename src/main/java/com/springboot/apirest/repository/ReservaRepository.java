@@ -4,6 +4,7 @@ import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.dao.Usuario;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -22,6 +23,13 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     List<Reserva> findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(
             Usuario usuario, Date fechaReserva, String horaFin
     );
+
+    @Query("SELECT r FROM Reserva r WHERE r.usuario = :usuario AND " +
+            "(r.fechaReserva > :fechaActual OR " +
+            "(r.fechaReserva = :fechaActual AND r.horaInicio >= :horaInicio))")
+    List<Reserva> findReservasFuturas(@Param("usuario") Usuario usuario,
+                                      @Param("fechaActual") Date fechaActual,
+                                      @Param("horaInicio") String horaInicio);
 
 
 }

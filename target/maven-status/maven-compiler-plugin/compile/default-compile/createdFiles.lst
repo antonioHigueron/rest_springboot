@@ -7,6 +7,7 @@ com\springboot\apirest\service\PistaService.class
 com\springboot\apirest\service\ReservaService.class
 com\springboot\apirest\controller\ClubController.class
 com\springboot\apirest\service\HistoricoReservaService.class
+com\springboot\apirest\util\EmailConfig.class
 com\springboot\apirest\dto\PistaDto.class
 com\springboot\apirest\security\SecurityConfig.class
 com\springboot\apirest\dao\Usuario.class

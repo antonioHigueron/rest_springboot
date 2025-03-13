@@ -26,10 +26,11 @@ public class ReservaService {
     @Autowired
     private EmailService emailService;
 
-    public ReservaService(ReservaRepository reservaRepository, UsuarioRepository usuarioRepository, PistaRepository pistaRepository, PistaService pistaService) {
+    public ReservaService(ReservaRepository reservaRepository, UsuarioRepository usuarioRepository, PistaRepository pistaRepository, PistaService pistaService, EmailService emailService) {
         this.reservaRepository = reservaRepository;
         this.usuarioRepository = usuarioRepository;
         this.pistaService = pistaService;
+        this.emailService = emailService;
     }
 
     public List<Reserva> listarReservas() {
@@ -41,30 +42,26 @@ public class ReservaService {
     }
 
     public List<Reserva> obtenerReservasDisponibles(Integer idUsuario) {
-        Usuario usuario = usuarioRepository.findById(idUsuario)
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         //LocalDate fechaActual = LocalDate.now();
         Date fechaActual = Date.valueOf(LocalDate.now());
         //LocalTime horaActual = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
         String horaActual = LocalTime.now().truncatedTo(ChronoUnit.SECONDS).toString();
 
-       /* return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualOrFechaReservaAndHoraFinGreaterThan(
-                usuario, fechaActual, fechaActual, horaActual
-        );*/
-        return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(
-                usuario, fechaActual, horaActual
-        );
+        //return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(usuario, fechaActual, horaActual);
+        return reservaRepository.findReservasFuturas(usuario, fechaActual, horaActual);
+
+
     }
 
 
     public Reserva guardarReserva(Reserva reserva) {
         pistaService.actualizarEstado(reserva.getPista().getIdPista(),"No Disponible");
         try {
-            //emailService.enviarCorreoConQR(reserva.getUsuario().getEmail(), reserva.getFechaReserva()+" "+reserva.getHoraInicio()+" en el club "+reserva.getPista().getClub() +" en la pista: "+reserva.getPista().getNombrePista());
-            emailService.enviarCorreo(reserva.getUsuario().getEmail(),"asuntoo", reserva.getFechaReserva()+" "+reserva.getHoraInicio()+" en el club "+reserva.getPista().getClub() +" en la pista: "+reserva.getPista().getNombrePista());
-            //emailService.sendEmail(reserva.getUsuario().getEmail(),"asuntoo", reserva.getFechaReserva()+" "+reserva.getHoraInicio()+" en el club "+reserva.getPista().getClub() +" en la pista: "+reserva.getPista().getNombrePista());
-        } catch (Exception e) {
+            emailService.enviarCorreo("acobosscabello@gmail.com","Reserva padel", "Tiene confirmada reserva de pista de padel el "+reserva.getFechaReserva()+" a las "
+                    +reserva.getHoraInicio() +" en el club "+reserva.getPista().getClub().getNombre() +" en la pista: "+reserva.getPista().getNombrePista()+
+                    " Gracias por todo.", "+34"+reserva.getPista().getClub().getTelefono());
+            } catch (Exception e) {
             throw new RuntimeException(e);
         }
         return reservaRepository.save(reserva);
