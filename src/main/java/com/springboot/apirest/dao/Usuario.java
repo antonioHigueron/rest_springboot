@@ -4,6 +4,8 @@ import javax.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import java.util.Date;
+import java.util.List;
+import com.springboot.apirest.dto.PistaDto;
 
 @Entity
 @Table(name = "usuarios")
@@ -11,7 +13,7 @@ import java.util.Date;
 @Setter
 public class Usuario {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id_usuario")
     private Integer idUsuario;
     private String nombre;
@@ -20,4 +22,15 @@ public class Usuario {
     private String telefono;
     private Date fechaRegistro;
     private String contrasena;
+    private String rol;
+    private String club;
+    //esto sirve para que no se mapee con la entidad de basedatos a la que se vincula
+    @Transient
+    private List<String> nombrePistas;
+    private String pistas;
+    private String ubicacion;
+
+    @Transient
+    private PistaDto pistaDto;
+
 }
