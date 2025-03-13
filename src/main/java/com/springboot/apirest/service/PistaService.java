@@ -34,7 +34,7 @@ public class PistaService {
             //if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals("2024-03-09 18:30:00") ){
             if (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) ){
                 pistaList.add(pistas.get(i));
-                if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals(fecha+" "+hora) ){
+                if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().substring(0,10).equals(fecha) ){
                     pistaList.remove(pistas.get(i));
                 }
             }
@@ -61,4 +61,19 @@ public class PistaService {
         }
         return false;
     }
+
+    public Pista actualizarEstado(Integer idPista, String nuevoEstado) {
+        Optional<Pista> pistaOpt = pistaRepository.findById(idPista);
+
+        if (pistaOpt.isPresent()) {
+            Pista pista = pistaOpt.get();
+            pista.setEstado(nuevoEstado);  // Actualizar el estado
+            return pistaRepository.save(pista);  // Guardar la pista actualizada
+        } else {
+            throw new RuntimeException("Pista no encontrada con ID: " + idPista);
+        }
+    }
+
+
+
 }

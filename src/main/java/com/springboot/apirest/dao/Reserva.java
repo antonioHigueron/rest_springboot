@@ -12,7 +12,7 @@ import java.sql.Date;
 @Setter
 public class Reserva {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer idReserva;
 
     @ManyToOne

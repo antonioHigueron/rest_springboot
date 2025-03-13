@@ -2,6 +2,7 @@ package com.springboot.apirest.service;
 
 import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.dao.Usuario;
+import com.springboot.apirest.repository.PistaRepository;
 import com.springboot.apirest.repository.ReservaRepository;
 import com.springboot.apirest.repository.UsuarioRepository;
 import org.springframework.stereotype.Service;
@@ -17,10 +18,12 @@ import java.util.Optional;
 public class ReservaService {
     private final ReservaRepository reservaRepository;
     private final UsuarioRepository usuarioRepository;
+    private final PistaService pistaService;
 
-    public ReservaService(ReservaRepository reservaRepository, UsuarioRepository usuarioRepository) {
+    public ReservaService(ReservaRepository reservaRepository, UsuarioRepository usuarioRepository, PistaRepository pistaRepository, PistaService pistaService) {
         this.reservaRepository = reservaRepository;
         this.usuarioRepository = usuarioRepository;
+        this.pistaService = pistaService;
     }
 
     public List<Reserva> listarReservas() {
@@ -50,6 +53,7 @@ public class ReservaService {
 
 
     public Reserva guardarReserva(Reserva reserva) {
+        pistaService.actualizarEstado(reserva.getPista().getIdPista(),"No Disponible");
         return reservaRepository.save(reserva);
     }
 
