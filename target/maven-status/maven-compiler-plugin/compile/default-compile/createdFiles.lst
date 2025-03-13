@@ -11,10 +11,12 @@ com\springboot\apirest\dto\PistaDto.class
 com\springboot\apirest\security\SecurityConfig.class
 com\springboot\apirest\dao\Usuario.class
 com\springboot\apirest\service\AuthService.class
+com\springboot\apirest\service\EmailService.class
 com\springboot\apirest\controller\AuthController.class
 com\springboot\apirest\controller\HistoricoReservasController.class
 com\springboot\apirest\repository\HistoricoReservaRepository.class
 com\springboot\apirest\repository\ClubRepository.class
+com\springboot\apirest\service\QRCodeService.class
 com\springboot\apirest\security\WebConfig.class
 com\springboot\apirest\dao\Club.class
 com\springboot\apirest\repository\TutorialRepository.class

@@ -124,6 +124,44 @@
             <optional>true</optional>
         </dependency>
 
+<!--        Enviar correo con QR de la info de una reserva-->
+            <!-- Enviar correos electrónicos -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-mail</artifactId>
+            </dependency>
+            <!-- Generar códigos QR -->
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>core</artifactId>
+                <version>3.4.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.google.zxing</groupId>
+                <artifactId>javase</artifactId>
+                <version>3.4.1</version>
+            </dependency>
+
+<!--        enviar correos-->
+<!--        <dependency>-->
+<!--            <groupId>com.resend</groupId>-->
+<!--            <artifactId>resend-java</artifactId>-->
+<!--            <version>0.1.0</version>-->
+<!--        </dependency>-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     </dependencies>
 

@@ -1,12 +1,16 @@
 package com.springboot.apirest.service;
 
+import com.google.zxing.WriterException;
 import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.dao.Usuario;
 import com.springboot.apirest.repository.PistaRepository;
 import com.springboot.apirest.repository.ReservaRepository;
 import com.springboot.apirest.repository.UsuarioRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
+import java.io.IOException;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -19,6 +23,8 @@ public class ReservaService {
     private final ReservaRepository reservaRepository;
     private final UsuarioRepository usuarioRepository;
     private final PistaService pistaService;
+    @Autowired
+    private EmailService emailService;
 
     public ReservaService(ReservaRepository reservaRepository, UsuarioRepository usuarioRepository, PistaRepository pistaRepository, PistaService pistaService) {
         this.reservaRepository = reservaRepository;
@@ -54,6 +60,13 @@ public class ReservaService {
 
     public Reserva guardarReserva(Reserva reserva) {
         pistaService.actualizarEstado(reserva.getPista().getIdPista(),"No Disponible");
+        try {
+            //emailService.enviarCorreoConQR(reserva.getUsuario().getEmail(), reserva.getFechaReserva()+" "+reserva.getHoraInicio()+" en el club "+reserva.getPista().getClub() +" en la pista: "+reserva.getPista().getNombrePista());
+            emailService.enviarCorreo(reserva.getUsuario().getEmail(),"asuntoo", reserva.getFechaReserva()+" "+reserva.getHoraInicio()+" en el club "+reserva.getPista().getClub() +" en la pista: "+reserva.getPista().getNombrePista());
+            //emailService.sendEmail(reserva.getUsuario().getEmail(),"asuntoo", reserva.getFechaReserva()+" "+reserva.getHoraInicio()+" en el club "+reserva.getPista().getClub() +" en la pista: "+reserva.getPista().getNombrePista());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         return reservaRepository.save(reserva);
     }
 

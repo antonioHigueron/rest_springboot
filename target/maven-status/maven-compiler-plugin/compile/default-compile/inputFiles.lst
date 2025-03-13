@@ -17,7 +17,9 @@ C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springbo
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\ClubService.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\security\SecurityConfig.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\dao\Reserva.java
+C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\QRCodeService.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\dto\Token.java
+C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\EmailService.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\service\HistoricoReservaService.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\dao\Club.java
 C:\Users\acaer\Desktop\proyecto\iestrassierra\backend\src\main\java\com\springboot\apirest\dao\Pista.java
