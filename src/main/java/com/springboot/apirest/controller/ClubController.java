@@ -2,6 +2,7 @@ package com.springboot.apirest.controller;
 
 
 import com.springboot.apirest.dao.Club;
+import com.springboot.apirest.dao.Pista;
 import com.springboot.apirest.service.ClubService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,12 +20,19 @@ public class ClubController {
     public List<Club> getAllClubes() {
         return clubService.getAllClubes();
     }
-
+/*
     @GetMapping("/{id}")
     public ResponseEntity<Club> getClubById(@PathVariable Integer id) {
         return clubService.getClubById(id)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+*/
+    @GetMapping("/{nombre}")
+    public ResponseEntity<List<Pista>> getClubByNombre(@PathVariable String nombre) {
+        String tmp = nombre.replace("%20"," ");
+        return ResponseEntity.ok(clubService.getClubByNombre(tmp));
+
     }
 
     @PostMapping
