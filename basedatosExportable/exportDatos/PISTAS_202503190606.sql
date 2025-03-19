@@ -1,0 +1,88 @@
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-13 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-13 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-13 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-13 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-13 23:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-14 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-14 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-14 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-14 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-14 23:00:00');
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-15 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-15 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-15 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-15 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-15 23:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-16 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-16 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-16 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-16 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-16 23:00:00');
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-17 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-17 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-17 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-17 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-17 23:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-18 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-18 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-18 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-18 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-18 23:00:00');
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-19 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-19 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-19 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-19 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-19 23:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-20 17:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-20 18:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'No Disponible','2025-03-20 20:00:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-20 21:30:00'),
+	 ('pista 1eee','calle e','Interior',3456,'Disponible','2025-03-20 23:00:00');
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-13 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-13 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-13 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-13 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-13 23:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-14 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-14 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-14 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-14 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-14 23:00:00');
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-15 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-15 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-15 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-15 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-15 23:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-16 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-16 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-16 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-16 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-16 23:00:00');
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-17 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-17 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-17 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-17 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-17 23:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-18 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-18 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-18 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-18 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-18 23:00:00');
+INSERT INTO PUBLIC.PISTAS (NOMBRE_PISTA,UBICACION,TIPO_PISTA,ID_CLUB,ESTADO,FECHA_HORA) VALUES
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-19 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-19 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-19 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-19 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-19 23:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'No Disponible','2025-03-20 17:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-20 18:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-20 20:00:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-20 21:30:00'),
+	 ('Cuadrilla','Calle El remate, 40','Exterior',3546,'Disponible','2025-03-20 23:00:00');
