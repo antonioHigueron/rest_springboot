@@ -1,5 +1,6 @@
 package com.springboot.apirest.controller;
 
+import com.springboot.apirest.dao.Pista;
 import com.springboot.apirest.dao.Usuario;
 import com.springboot.apirest.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -30,6 +31,12 @@ public class UsuarioController {
     @PostMapping
     public Usuario crearUsuario(@RequestBody Usuario usuario) {
         return usuarioService.guardarUsuario(usuario);
+    }
+
+    @PutMapping("")
+    public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario user) {
+        usuarioService.updateUsuario(user);
+        return ResponseEntity.ok(user);
     }
 
     @DeleteMapping("/{id}")

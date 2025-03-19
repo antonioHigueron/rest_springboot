@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 import javax.mail.MessagingException;
 import java.io.IOException;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
@@ -33,14 +35,28 @@ public class ReservaService {
         this.emailService = emailService;
     }
 
+    /**
+     *
+     * @return
+     */
     public List<Reserva> listarReservas() {
         return reservaRepository.findAll();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public Optional<List<Optional<Reserva>>> obtenerReservaPorId(Integer id) {
         return Optional.of(List.of(reservaRepository.findById(id))) ;
     }
 
+    /**
+     *
+     * @param idUsuario
+     * @return
+     */
     public List<Reserva> obtenerReservasDisponibles(Integer idUsuario) {
         Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
         //LocalDate fechaActual = LocalDate.now();
@@ -54,7 +70,11 @@ public class ReservaService {
 
     }
 
-
+    /**
+     *
+     * @param reserva
+     * @return
+     */
     public Reserva guardarReserva(Reserva reserva) {
         pistaService.actualizarEstado(reserva.getPista().getIdPista(),"No Disponible");
         try {
@@ -67,6 +87,12 @@ public class ReservaService {
         return reservaRepository.save(reserva);
     }
 
+    /**
+     *
+     * @param id
+     * @param reserva
+     * @return
+     */
     public Optional<Reserva> actualizarReserva(Integer id, Reserva reserva) {
         if (reservaRepository.existsById(id)){
             reserva.setIdReserva(id);
@@ -75,14 +101,34 @@ public class ReservaService {
         return Optional.empty();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public boolean eliminarReserva(Integer id) {
         if(reservaRepository.existsById(id)){
             reservaRepository.deleteById(id);
             return true;
         }
         return false;
-
-
     }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public boolean borrarReservasAnteriores() throws ParseException {
+        int eliminadas = reservaRepository.borrarReservasAnteriores();
+        if (eliminadas > 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+
+
 }
 

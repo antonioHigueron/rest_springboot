@@ -11,6 +11,13 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.List;
 
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+import java.time.LocalDate;
+
+
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
     //@Query("SELECT r FROM com.springboot.apirest.dao.Reserva r WHERE r.idUsuario = :idUsuario AND (r.fechaReserva > :fechaActual OR (r.fechaReserva = :fechaActual AND r.horaFin > :horaActual))")
@@ -30,6 +37,15 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     List<Reserva> findReservasFuturas(@Param("usuario") Usuario usuario,
                                       @Param("fechaActual") Date fechaActual,
                                       @Param("horaInicio") String horaInicio);
+
+
+    /**
+     * eliminar reservas si son de dias anteriores al dia actual
+     */
+    @Transactional
+    @Modifying
+    @Query("DELETE FROM Reserva r WHERE r.fechaReserva < CURRENT_DATE")
+    int borrarReservasAnteriores();
 
 
 }

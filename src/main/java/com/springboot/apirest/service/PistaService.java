@@ -3,7 +3,9 @@ package com.springboot.apirest.service;
 
 import com.springboot.apirest.dao.Pista;
 
+import com.springboot.apirest.dao.Usuario;
 import com.springboot.apirest.repository.PistaRepository;
+import com.springboot.apirest.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,11 +13,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
+
 
 @Service
 public class PistaService {
     @Autowired
     private PistaRepository pistaRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     public List<Pista> getAllPistas() {
         return pistaRepository.findAll();
@@ -46,20 +53,27 @@ public class PistaService {
         return pistaRepository.save(pista);
     }
 
-    public Optional<Pista> updatePista(Integer id, Pista pista) {
-        if (pistaRepository.existsById(id)) {
-            pista.setIdPista(id);
-            return Optional.of(pistaRepository.save(pista));
-        }
-        return Optional.empty();
+    public boolean updatePista(Pista pista) {
+        ArrayList<Pista> pista1 = (ArrayList<Pista>) pistaRepository.findByNombrePista(pista.getNombrePista());
+            pista1.forEach(p ->{
+                p.setNombrePista(pista.getNuevoNombre());
+                pistaRepository.save(p);
+            });
+
+            Usuario usuario = usuarioRepository.findByEmail(pista.getEmail()).get();
+            String userPistas = usuario.getPistas();
+            String cambio = userPistas.replace(pista.getNombrePista(), pista.getNuevoNombre());
+            usuario.setPistas(cambio);
+            usuarioRepository.save(usuario);
+            return true;
     }
 
-    public boolean deletePista(Integer id) {
-        if (pistaRepository.existsById(id)) {
-            pistaRepository.deleteById(id);
-            return true;
-        }
-        return false;
+    public boolean deletePista(String nombre) {
+        ArrayList<Pista> pista1 = (ArrayList<Pista>) pistaRepository.findByNombrePista(nombre);
+        pista1.forEach(p ->{
+            pistaRepository.deleteAll(pista1);//deleteByNombrePista(nombre);
+        });
+        return true;
     }
 
     public Pista actualizarEstado(Integer idPista, String nuevoEstado) {

@@ -1,10 +1,13 @@
 package com.springboot.apirest.dao;
 
 import javax.persistence.*;
+
+import com.springboot.apirest.dto.PistaDto;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "pistas")
@@ -23,4 +26,11 @@ public class Pista {
     @ManyToOne
     @JoinColumn(name = "id_club")
     private Club club;
+
+    @Transient
+    private String nuevoNombre;
+
+    @Transient
+    private String email;
+
 }

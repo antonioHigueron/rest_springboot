@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -103,5 +104,14 @@ public class UsuarioService {
 
     public void eliminarUsuario(Integer id) {
         usuarioRepository.deleteById(id);
+    }
+
+
+    public boolean updateUsuario(Usuario user) {
+        Usuario user1 = usuarioRepository.findByEmail(user.getEmail()).get();
+        String tmp = user1.getPistas();
+        user1.setPistas(tmp+", "+user.getNuevaPista());
+        usuarioRepository.save(user1);
+        return true;
     }
 }

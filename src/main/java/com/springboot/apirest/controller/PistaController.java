@@ -42,16 +42,15 @@ public class PistaController {
         return pistaService.createPista(pista);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Pista> updatePista(@PathVariable Integer id, @RequestBody Pista pista) {
-        return pistaService.updatePista(id, pista)
-                .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.notFound().build());
+    @PutMapping("")
+    public ResponseEntity<Pista> updatePista(@RequestBody Pista pista) {
+        pistaService.updatePista(pista);
+        return ResponseEntity.ok(pista);
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePista(@PathVariable Integer id) {
-        if (pistaService.deletePista(id)) {
+    @DeleteMapping("/{nombre}")
+    public ResponseEntity<Void> deletePista(@PathVariable String nombre) {
+        if (pistaService.deletePista(nombre)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

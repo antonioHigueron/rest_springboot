@@ -27,6 +27,8 @@ public class Usuario {
     //esto sirve para que no se mapee con la entidad de basedatos a la que se vincula
     @Transient
     private List<PistaDto> nombrePistas;
+    @Transient
+    private String nuevaPista;
     private String pistas;
     private String ubicacion;
 
