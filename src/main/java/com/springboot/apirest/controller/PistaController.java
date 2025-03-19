@@ -48,9 +48,9 @@ public class PistaController {
         return ResponseEntity.ok(pista);
     }
 
-    @DeleteMapping("/{nombre}")
-    public ResponseEntity<Void> deletePista(@PathVariable String nombre) {
-        if (pistaService.deletePista(nombre)) {
+    @DeleteMapping("/{nombre}/{email}")
+    public ResponseEntity<Void> deletePista(@PathVariable String nombre, @PathVariable String email) {
+        if (pistaService.deletePista(nombre, email)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

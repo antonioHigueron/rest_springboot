@@ -68,11 +68,19 @@ public class PistaService {
             return true;
     }
 
-    public boolean deletePista(String nombre) {
+    public boolean deletePista(String nombre, String email) {
         ArrayList<Pista> pista1 = (ArrayList<Pista>) pistaRepository.findByNombrePista(nombre);
         pista1.forEach(p ->{
             pistaRepository.deleteAll(pista1);//deleteByNombrePista(nombre);
         });
+
+        Usuario usuario = usuarioRepository.findByEmail(email).get();
+        String userPistas = usuario.getPistas();
+        String cambio = userPistas.replace(", "+nombre, "");
+        usuario.setPistas(cambio);
+        usuarioRepository.save(usuario);
+
+
         return true;
     }
 
