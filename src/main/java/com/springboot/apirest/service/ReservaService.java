@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import java.io.IOException;
+import java.lang.reflect.Field;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -19,6 +20,7 @@ import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class ReservaService {
@@ -65,9 +67,23 @@ public class ReservaService {
         String horaActual = LocalTime.now().truncatedTo(ChronoUnit.SECONDS).toString();
 
         //return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(usuario, fechaActual, horaActual);
-        return reservaRepository.findReservasFuturas(usuario, fechaActual, horaActual);
+        List<Reserva> list =  reservaRepository.findReservasFuturas(usuario, fechaActual, horaActual);
+        //Si alguno de los atributos es null, no se devuelve la reserva
+        List<Reserva> reservasFiltradas = list.stream()
+                .filter(reserva -> {
+                    for (Field field : reserva.getClass().getDeclaredFields()) {
+                        field.setAccessible(true);
+                        try {
+                            if (field.get(reserva) == null) return false;
+                        } catch (IllegalAccessException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    return true;
+                })
+                .collect(Collectors.toList());
 
-
+        return reservasFiltradas;
     }
 
     /**
@@ -84,6 +100,10 @@ public class ReservaService {
             } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        reserva.setHoraFin(reserva.getHoraInicio().equals("17:00")?"18:30":
+                reserva.getHoraInicio().equals("18:30")?"20:00":
+                reserva.getHoraInicio().equals("20:00")?"21:30":
+                reserva.getHoraInicio().equals("21:30")?"23:00":"00:00");
         return reservaRepository.save(reserva);
     }
 
