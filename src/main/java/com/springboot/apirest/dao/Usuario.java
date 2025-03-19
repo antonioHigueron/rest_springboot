@@ -22,6 +22,7 @@ public class Usuario {
     private String telefono;
     private Date fechaRegistro;
     private String contrasena;
+    private Integer nivel;
     private String rol;
     private String club;
     //esto sirve para que no se mapee con la entidad de basedatos a la que se vincula

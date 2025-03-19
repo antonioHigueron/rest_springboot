@@ -68,6 +68,11 @@ public class ReservaService {
 
         //return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(usuario, fechaActual, horaActual);
         List<Reserva> list =  reservaRepository.findReservasFuturas(usuario, fechaActual, horaActual);
+        for (Reserva reserva : list) {
+            if (!(pistaService.getPistaById(reserva.getPista().getIdPista()).get().getJugadorEmail().split(",").length == 4)  ){
+                reserva.setEstado("Abierta");
+            }
+        }
         //Si alguno de los atributos es null, no se devuelve la reserva
         List<Reserva> reservasFiltradas = list.stream()
                 .filter(reserva -> {
@@ -92,7 +97,7 @@ public class ReservaService {
      * @return
      */
     public Reserva guardarReserva(Reserva reserva) {
-        pistaService.actualizarEstado(reserva.getPista().getIdPista(),"No Disponible");
+        pistaService.actualizarEstado(reserva.getPista().getIdPista(),"No Disponible", reserva.getUsuario().getEmail());
         try {
             emailService.enviarCorreo("acobosscabello@gmail.com","Reserva padel", "Tiene confirmada reserva de pista de padel el "+reserva.getFechaReserva()+" a las "
                     +reserva.getHoraInicio() +" en el club "+reserva.getPista().getClub().getNombre() +" en la pista: "+reserva.getPista().getNombrePista()+
@@ -100,10 +105,7 @@ public class ReservaService {
             } catch (Exception e) {
             throw new RuntimeException(e);
         }
-        reserva.setHoraFin(reserva.getHoraInicio().equals("17:00")?"18:30":
-                reserva.getHoraInicio().equals("18:30")?"20:00":
-                reserva.getHoraInicio().equals("20:00")?"21:30":
-                reserva.getHoraInicio().equals("21:30")?"23:00":"00:00");
+
         return reservaRepository.save(reserva);
     }
 

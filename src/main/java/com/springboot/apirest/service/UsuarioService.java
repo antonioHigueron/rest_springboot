@@ -49,7 +49,7 @@ public class UsuarioService {
         //guardar pista/s
         guardarPista(usuario, idClub);
         usuario.setFechaRegistro(new Date(System.currentTimeMillis()));
-        usuario.setPistas(usuario.getNombrePistas().stream().map(PistaDto::getNombre).collect(Collectors.joining(",")));
+        usuario.setPistas(usuario.getNombrePistas().stream().map(PistaDto::getNombre).collect(Collectors.joining(", ")));
         return usuarioRepository.save(usuario);
     }
 

@@ -28,4 +28,5 @@ public class Reserva {
     private String horaFin;
     private String estado;
     private Integer contadorModificaciones;
+    private Integer restriccionNivel;
 }

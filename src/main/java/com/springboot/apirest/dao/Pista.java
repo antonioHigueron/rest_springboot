@@ -22,6 +22,7 @@ public class Pista {
     private String tipoPista;
     private String estado;
     private String fechaHora;
+    private String jugadorEmail;
 
     @ManyToOne
     @JoinColumn(name = "id_club")

@@ -84,13 +84,16 @@ public class PistaService {
         return true;
     }
 
-    public Pista actualizarEstado(Integer idPista, String nuevoEstado) {
+    public void actualizarEstado(Integer idPista, String nuevoEstado, String email) {
         Optional<Pista> pistaOpt = pistaRepository.findById(idPista);
 
         if (pistaOpt.isPresent()) {
             Pista pista = pistaOpt.get();
-            pista.setEstado(nuevoEstado);  // Actualizar el estado
-            return pistaRepository.save(pista);  // Guardar la pista actualizada
+            pista.setJugadorEmail(pista.getJugadorEmail() != null ? pista.getJugadorEmail()+", "+email : email);
+            if (pista.getJugadorEmail().split(",").length == 4){
+                pista.setEstado(nuevoEstado);
+            }
+            pistaRepository.save(pista);  // Guardar la pista actualizada
         } else {
             throw new RuntimeException("Pista no encontrada con ID: " + idPista);
         }
