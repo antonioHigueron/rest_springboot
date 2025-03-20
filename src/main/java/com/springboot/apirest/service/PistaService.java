@@ -32,7 +32,7 @@ public class PistaService {
         return pistaRepository.findById(id);
     }
 
-    public List<Pista> getPistaByIdClub(Integer id, String fecha, String hora) {
+    public List<Pista> getPistaByIdClub(Integer id, String fecha, String email) {
         List<Pista> pistas = pistaRepository.findByClub_IdClub(id);
         List<Pista> pistaList = new ArrayList<>();
         //pistas.removeIf(pista -> (pista.getEstado().equals("No Disponible") && pista.getFechaHora().equals("2024-03-09 18:30:00")) );
@@ -41,8 +41,9 @@ public class PistaService {
             //if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals("2024-03-09 18:30:00") ){
             if (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) ){
                 pistaList.add(pistas.get(i));
-                if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().substring(0,10).equals(fecha) ){
+                if (pistas.get(i).getEstado().equals("No Disponible") || (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) && (pistas.get(i).getJugadorEmail() != null && pistas.get(i).getJugadorEmail().contains(email))) ){
                     pistaList.remove(pistas.get(i));
+
                 }
             }
         }

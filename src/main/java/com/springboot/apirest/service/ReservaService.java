@@ -68,8 +68,16 @@ public class ReservaService {
 
         //return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(usuario, fechaActual, horaActual);
         List<Reserva> list =  reservaRepository.findReservasFuturas(usuario, fechaActual, horaActual);
+
         for (Reserva reserva : list) {
-            if (!(pistaService.getPistaById(reserva.getPista().getIdPista()).get().getJugadorEmail().split(",").length == 4)  ){
+            if (reserva.getRestriccionNivel() != null){
+                reserva.setRestringir("Si");
+            }else{
+                reserva.setRestringir("No");
+                reserva.setRestriccionNivel(0);
+            }
+            String jugadorList = pistaService.getPistaById(reserva.getPista().getIdPista()).get().getJugadorEmail();
+            if ( jugadorList != null && jugadorList.split(",").length != 4){
                 reserva.setEstado("Abierta");
             }
         }
@@ -98,9 +106,15 @@ public class ReservaService {
      */
     public Reserva guardarReserva(Reserva reserva) {
         pistaService.actualizarEstado(reserva.getPista().getIdPista(),"No Disponible", reserva.getUsuario().getEmail());
+        if (reserva.getRestringir().equals("Si")){
+            reserva.setRestriccionNivel(reserva.getUsuario().getNivel());
+        }else{
+            reserva.setRestriccionNivel(0);
+        }
+
         try {
-            emailService.enviarCorreo("acobosscabello@gmail.com","Reserva padel", "Tiene confirmada reserva de pista de padel el "+reserva.getFechaReserva()+" a las "
-                    +reserva.getHoraInicio() +" en el club "+reserva.getPista().getClub().getNombre() +" en la pista: "+reserva.getPista().getNombrePista()+
+            emailService.enviarCorreo(reserva.getUsuario().getEmail(),"Reserva padel", "Tiene confirmada reserva de pista de padel el: "+reserva.getFechaReserva()+" a las "
+                    +reserva.getHoraInicio() +" en el club: "+reserva.getPista().getClub().getNombre() +"\r\n y en la pista: "+reserva.getPista().getNombrePista()+
                     " Gracias por todo.", "+34"+reserva.getPista().getClub().getTelefono());
             } catch (Exception e) {
             throw new RuntimeException(e);

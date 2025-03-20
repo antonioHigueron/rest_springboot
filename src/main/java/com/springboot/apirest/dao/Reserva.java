@@ -29,4 +29,8 @@ public class Reserva {
     private String estado;
     private Integer contadorModificaciones;
     private Integer restriccionNivel;
+
+    @Transient
+    private String restringir;
+
 }
