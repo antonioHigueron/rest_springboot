@@ -55,24 +55,27 @@ public class PistaService {
             LocalTime horaReserva = LocalTime.parse(horaStr);
             //if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals("2024-03-09 18:30:00") ){
             if (fechaReserva.equals(fechaHoy) && horaReserva.isAfter(horaActual)){
-                pistaList.add(pistas.get(i));
+
                 //para que un mismo usuario no pueda reservar la misma pista una y otra vez
                 if (pistas.get(i).getEstado().equals("No Disponible") || (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) && (pistas.get(i).getJugadorEmail() != null && pistas.get(i).getJugadorEmail().contains(email))) ){
                     pistaList.remove(pistas.get(i));
                 }
-            }
+            }pistaList.add(pistas.get(i));
         }
         pistaListTmp = new ArrayList<>(pistaList);
         //filtrar para que si la reserva esta restringida a un nivel, no se muestre a usuarios de otros niveles
         Usuario user = usuarioRepository.findByEmail(email).get();
         int nivel = user.getNivel();
         for (Pista pista : pistaList) {
-            Reserva reserva = reservaRepository.findByPista_IdPista(pista.getIdPista());
-            if (reserva != null){
-                if (reserva.getRestriccionNivel() != 0 && reserva.getRestriccionNivel() != nivel ){
-                    pistaListTmp.remove(pista);
+            List<Reserva> reserva = reservaRepository.findByPista_IdPista(pista.getIdPista());
+            for (Reserva reserva1 : reserva) {
+                if (reserva1 != null){
+                    if (reserva1.getRestriccionNivel() != 0 && reserva1.getRestriccionNivel() != nivel ){
+                        pistaListTmp.remove(pista);
+                    }
                 }
             }
+
 
         }
         return pistaListTmp;

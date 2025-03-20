@@ -22,12 +22,14 @@ public class ReservasController {
         return reservasService.listarReservas();
     }
 
+
+
+
+
     /**
      * Obtener la lista de reservas por usuario.
-     *
-     * @param id
-     * @return
      */
+
     @GetMapping("/{id}")
     public ResponseEntity<List<Reserva>> getReservaById(@PathVariable Integer id) {
         List<Reserva> reservas = reservasService.obtenerReservasDisponibles(id);
@@ -37,10 +39,26 @@ public class ReservasController {
         return ResponseEntity.ok(reservas);  // Devolver las reservas encontradas
     }
 
+
+    @GetMapping("/{id}/historico")
+    public ResponseEntity<List<Reserva>> getReservaByIdHistorico(@PathVariable Integer id) {
+        List<Reserva> reservas = reservasService.obtenerReservasDisponibles(id);
+        if (reservas.isEmpty()) {
+            return ResponseEntity.notFound().build();  // No reservas encontradas
+        }
+        return ResponseEntity.ok(reservas);  // Devolver las reservas encontradas
+    }
+
+
+
+
     @PostMapping
     public Reserva createReserva(@RequestBody Reserva reserva) {
         return reservasService.guardarReserva(reserva);
     }
+
+
+
 
     @PutMapping("/{id}")
     public ResponseEntity<Reserva> updateReserva(@PathVariable Integer id, @RequestBody Reserva reserva) {
@@ -48,12 +66,19 @@ public class ReservasController {
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+
+
+
     @PutMapping("/{id}/resultado")
     public ResponseEntity<Reserva> updateReservaResultado(@PathVariable Integer id, @RequestBody Map<String, String> resultado) {
         return reservasService.actualizarReservaResultado(id, resultado)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
+
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteHistoricoReserva(@PathVariable Integer id) {
@@ -63,10 +88,16 @@ public class ReservasController {
         return ResponseEntity.notFound().build();
     }
 
+
+
+
     @DeleteMapping()
     public ResponseEntity<Void> borrarReservasAntiguas() throws ParseException {
         reservasService.borrarReservasAnteriores();
         return ResponseEntity.ok().build();
     }
+
+
+
 
 }

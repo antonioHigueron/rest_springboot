@@ -43,7 +43,7 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     int borrarReservasAnteriores();
 
 
-    Reserva findByPista_IdPista(Integer idPista);
+    List<Reserva> findByPista_IdPista(Integer idPista);
 
 
 }
