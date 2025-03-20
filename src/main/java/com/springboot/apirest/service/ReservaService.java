@@ -76,10 +76,13 @@ public class ReservaService {
                 reserva.setRestringir("No");
                 reserva.setRestriccionNivel(0);
             }
-            String jugadorList = pistaService.getPistaById(reserva.getPista().getIdPista()).get().getJugadorEmail();
-            if ( jugadorList != null && jugadorList.split(",").length != 4){
-                reserva.setEstado("Abierta");
+            if (reserva != null){
+                String jugadorList = pistaService.getPistaById(reserva.getPista().getIdPista()).get().getJugadorEmail();
+                if ( jugadorList != null && jugadorList.split(",").length != 4){
+                    reserva.setEstado("Abierta");
+                }
             }
+
         }
         //Si alguno de los atributos es null, no se devuelve la reserva
         List<Reserva> reservasFiltradas = list.stream()

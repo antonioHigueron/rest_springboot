@@ -7,15 +7,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalTime;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Modifying;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import java.time.LocalDate;
 
 
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
@@ -46,6 +41,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     @Modifying
     @Query("DELETE FROM Reserva r WHERE r.fechaReserva < CURRENT_DATE")
     int borrarReservasAnteriores();
+
+
+    Reserva findByPista_IdPista(Integer idPista);
 
 
 }

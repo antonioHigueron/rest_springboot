@@ -3,17 +3,19 @@ package com.springboot.apirest.service;
 
 import com.springboot.apirest.dao.Pista;
 
+import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.dao.Usuario;
 import com.springboot.apirest.repository.PistaRepository;
+import com.springboot.apirest.repository.ReservaRepository;
 import com.springboot.apirest.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 
 @Service
@@ -23,6 +25,9 @@ public class PistaService {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
+
+    @Autowired
+    private ReservaRepository reservaRepository;
 
     public List<Pista> getAllPistas() {
         return pistaRepository.findAll();
@@ -35,19 +40,42 @@ public class PistaService {
     public List<Pista> getPistaByIdClub(Integer id, String fecha, String email) {
         List<Pista> pistas = pistaRepository.findByClub_IdClub(id);
         List<Pista> pistaList = new ArrayList<>();
+        List<Pista> pistaListTmp = new ArrayList<>();
         //pistas.removeIf(pista -> (pista.getEstado().equals("No Disponible") && pista.getFechaHora().equals("2024-03-09 18:30:00")) );
         //pistas.removeIf(pista -> pista.getFechaHora().equals("2024-03-09 18:30:00") );
         for (int i = 0; i < pistas.size(); i++) {
+            // Extraer fecha y hora
+            String fechaStr = pistas.get(i).getFechaHora().substring(0, 10);
+            String horaStr = pistas.get(i).getFechaHora().substring(11, 19);
+            // Obtener la fecha y hora actuales
+            LocalDate fechaHoy = LocalDate.now();
+            LocalTime horaActual = LocalTime.now();
+            // Convertir a objetos LocalDate y LocalTime
+            LocalDate fechaReserva = LocalDate.parse(fechaStr);
+            LocalTime horaReserva = LocalTime.parse(horaStr);
             //if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals("2024-03-09 18:30:00") ){
-            if (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) ){
+            if (fechaReserva.equals(fechaHoy) && horaReserva.isAfter(horaActual)){
                 pistaList.add(pistas.get(i));
+                //para que un mismo usuario no pueda reservar la misma pista una y otra vez
                 if (pistas.get(i).getEstado().equals("No Disponible") || (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) && (pistas.get(i).getJugadorEmail() != null && pistas.get(i).getJugadorEmail().contains(email))) ){
                     pistaList.remove(pistas.get(i));
-
                 }
             }
         }
-        return pistaList;
+        pistaListTmp = new ArrayList<>(pistaList);
+        //filtrar para que si la reserva esta restringida a un nivel, no se muestre a usuarios de otros niveles
+        Usuario user = usuarioRepository.findByEmail(email).get();
+        int nivel = user.getNivel();
+        for (Pista pista : pistaList) {
+            Reserva reserva = reservaRepository.findByPista_IdPista(pista.getIdPista());
+            if (reserva != null){
+                if (reserva.getRestriccionNivel() != 0 && reserva.getRestriccionNivel() != nivel ){
+                    pistaListTmp.remove(pista);
+                }
+            }
+
+        }
+        return pistaListTmp;
     }
 
     public Pista createPista(Pista pista) {
