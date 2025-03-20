@@ -115,7 +115,7 @@ public class ReservaService {
 
         try {
             emailService.enviarCorreo(reserva.getUsuario().getEmail(),"Reserva padel", "Tiene confirmada reserva de pista de padel el: "+reserva.getFechaReserva()+" a las "
-                    +reserva.getHoraInicio() +" en el club: "+reserva.getPista().getClub().getNombre() +"\r\n y en la pista: "+reserva.getPista().getNombrePista()+
+                    +reserva.getHoraInicio() +" en el club: "+reserva.getPista().getClub().getNombre() +" y en la pista: "+reserva.getPista().getNombrePista()+
                     " Gracias por todo.", "+34"+reserva.getPista().getClub().getTelefono());
             } catch (Exception e) {
             throw new RuntimeException(e);

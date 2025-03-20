@@ -63,7 +63,8 @@ public class EmailService {
             context.setVariable("mensaje", mensaje);
             //context.setVariable("mensaje", mensaje);
             String contenidoHtml = templateEngine.process("email", context);
-
+            //Con esto se puede formatear el contenido con formato html
+            //message.setContent(mensaje, "text/html");
             helper.setText(contenidoHtml, true);
 
             javaMailSender.send(message);
