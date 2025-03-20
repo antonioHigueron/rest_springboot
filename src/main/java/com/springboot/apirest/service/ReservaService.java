@@ -1,6 +1,5 @@
 package com.springboot.apirest.service;
 
-import com.google.zxing.WriterException;
 import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.dao.Usuario;
 import com.springboot.apirest.repository.PistaRepository;
@@ -9,16 +8,15 @@ import com.springboot.apirest.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.mail.MessagingException;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.sql.Date;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -122,7 +120,7 @@ public class ReservaService {
             } catch (Exception e) {
             throw new RuntimeException(e);
         }
-
+        reserva.setResultado("");
         return reservaRepository.save(reserva);
     }
 
@@ -138,6 +136,44 @@ public class ReservaService {
             return Optional.of(reservaRepository.save(reserva));
         }
         return Optional.empty();
+    }
+
+    public Optional<Reserva> actualizarReservaResultado(Integer id, Map<String, String> resultado) {
+        if (reservaRepository.existsById(id)){
+            Reserva reserva = reservaRepository.findById(id).get();
+            reserva.setResultado(resultado.get("resultado"));
+
+            Usuario usuario= usuarioRepository.findById(reserva.getUsuario().getIdUsuario()).get();
+            int nivel = usuario.getNivel();
+            nivel += evaluarResultado(resultado.get("resultado"));
+            nivel = nivel < 1 ? nivel=1:nivel;
+            nivel = nivel > 7 ? nivel=7:nivel;
+            usuario.setNivel(nivel);
+            usuarioRepository.save(usuario);
+            return Optional.of(reservaRepository.save(reserva));
+
+
+        }
+        return Optional.empty();
+    }
+
+    private int evaluarResultado(String resultado) {
+        int puntosA = 0;
+        int puntosB = 0;
+
+        for (String set : resultado.split(",")) {
+            String[] puntajes = set.trim().split("-"); // Separar por "-"
+            int p1 = Integer.parseInt(puntajes[0]);   // Primer número
+            int p2 = Integer.parseInt(puntajes[1]);   // Segundo número
+
+            if (p1 > p2) {
+                puntosA++;  // Sumar victoria para el primer jugador
+            } else {
+                puntosB++;  // Sumar victoria para el segundo jugador
+            }
+        }
+
+        return (puntosA > puntosB) ? 1 : -1;
     }
 
     /**

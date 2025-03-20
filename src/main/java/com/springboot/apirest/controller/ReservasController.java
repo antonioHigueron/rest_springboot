@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/reservas")
@@ -44,6 +45,12 @@ public class ReservasController {
     @PutMapping("/{id}")
     public ResponseEntity<Reserva> updateReserva(@PathVariable Integer id, @RequestBody Reserva reserva) {
         return reservasService.actualizarReserva(id, reserva)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+    @PutMapping("/{id}/resultado")
+    public ResponseEntity<Reserva> updateReservaResultado(@PathVariable Integer id, @RequestBody Map<String, String> resultado) {
+        return reservasService.actualizarReservaResultado(id, resultado)
                 .map(ResponseEntity::ok)
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
