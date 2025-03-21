@@ -80,9 +80,9 @@ public class ReservasController {
 
 
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteHistoricoReserva(@PathVariable Integer id) {
-        if (reservasService.eliminarReserva(id)) {
+    @DeleteMapping("/{id}/{email}")
+    public ResponseEntity<Void> deleteHistoricoReserva(@PathVariable Integer id, @PathVariable String email) {
+        if (reservasService.eliminarReserva(id,email)) {
             return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();

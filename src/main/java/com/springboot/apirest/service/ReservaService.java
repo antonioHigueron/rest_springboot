@@ -1,5 +1,6 @@
 package com.springboot.apirest.service;
 
+import com.springboot.apirest.dao.Pista;
 import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.dao.Usuario;
 import com.springboot.apirest.repository.PistaRepository;
@@ -14,10 +15,7 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,6 +25,8 @@ public class ReservaService {
     private final PistaService pistaService;
     @Autowired
     private EmailService emailService;
+    @Autowired
+    private PistaRepository pistaRepository;
 
     public ReservaService(ReservaRepository reservaRepository, UsuarioRepository usuarioRepository, PistaRepository pistaRepository, PistaService pistaService, EmailService emailService) {
         this.reservaRepository = reservaRepository;
@@ -123,15 +123,16 @@ public class ReservaService {
         }else{
             reserva.setRestriccionNivel(0);
         }
-
+        String uuid = UUID.randomUUID().toString();
         try {
             emailService.enviarCorreo(reserva.getUsuario().getEmail(),"Reserva padel", "Tiene confirmada reserva de pista de padel el: "+reserva.getFechaReserva()+" a las "
                     +reserva.getHoraInicio() +" en el club: "+reserva.getPista().getClub().getNombre() +" y en la pista: "+reserva.getPista().getNombrePista()+
-                    " Gracias por todo.", "+34"+reserva.getPista().getClub().getTelefono());
+                    " Gracias por todo.", "+34"+reserva.getPista().getClub().getTelefono(), uuid);
             } catch (Exception e) {
             throw new RuntimeException(e);
         }
         reserva.setResultado("");
+        reserva.setUuid(uuid);
         return reservaRepository.save(reserva);
     }
 
@@ -152,6 +153,7 @@ public class ReservaService {
     public Optional<Reserva> actualizarReservaResultado(Integer id, Map<String, String> resultado) {
         if (reservaRepository.existsById(id)){
             Reserva reserva = reservaRepository.findById(id).get();
+            reserva.setContadorModificaciones(reserva.getContadorModificaciones()+1);
             reserva.setResultado(resultado.get("resultado"));
 
             Usuario usuario= usuarioRepository.findById(reserva.getUsuario().getIdUsuario()).get();
@@ -192,8 +194,20 @@ public class ReservaService {
      * @param id
      * @return
      */
-    public boolean eliminarReserva(Integer id) {
+    public boolean eliminarReserva(Integer id, String email) {
         if(reservaRepository.existsById(id)){
+
+            Reserva reserva = reservaRepository.findById(id).get();
+            Pista pista = pistaRepository.findById(reserva.getPista().getIdPista()).get();
+            String tmp = pista.getJugadorEmail();
+            //pista.setJugadorEmail(tmp.replace(", "+email, ""));
+            List<String> emailsToRemove = Arrays.asList(email);
+            String output = Arrays.stream(tmp.split(","))
+                    .map(String::trim)
+                    .filter(email1 -> !emailsToRemove.contains(email1))
+                    .collect(Collectors.joining(", "));
+            pista.setJugadorEmail(output);
+            pistaRepository.save(pista);
             reservaRepository.deleteById(id);
             return true;
         }

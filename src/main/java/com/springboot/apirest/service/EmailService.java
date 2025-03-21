@@ -41,7 +41,7 @@ public class EmailService {
         this.qrCodeService = qrCodeService;
     }
 
-    public void enviarCorreo(String destinatario, String asunto, String mensaje, String contactoClub) {
+    public void enviarCorreo(String destinatario, String asunto, String mensaje, String contactoClub, String uuid) {
         try {
             MimeMessage message = javaMailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
@@ -53,8 +53,8 @@ public class EmailService {
             // Procesar la plantilla Thymeleaf
             // 📌 Generamos el QR como archivo
             //Con esto al escanear el qr aparece el email y ya te deja desde el movil enviar un correo
-            File qrFile = qrCodeService.generateQRCodeImage2("Confirmacion de reserva a nombre del usuario con correo: "+destinatario+"<br>Mostrar en recepción del club para confirmación.", 300, 300);
-            //File qrFile = qrCodeService.generateQRCodeImage2("Confirmacion de reserva a nombre del usuario con correo: "+contactoClub+"<br>Mostrar en recepción del club para confirmación.", 300, 300);
+            //File qrFile = qrCodeService.generateQRCodeImage2("Confirmacion de reserva a nombre del usuario con correo: "+destinatario+"<br>Mostrar en recepción del club para confirmación.", 300, 300);
+            File qrFile = qrCodeService.generateQRCodeImage2(uuid, 300, 300);
             // 📌 Adjuntar el archivo correctamente
             FileSystemResource fileResource = new FileSystemResource(qrFile);
             helper.addAttachment("QR_Code.png", fileResource);

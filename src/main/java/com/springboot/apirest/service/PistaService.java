@@ -121,7 +121,11 @@ public class PistaService {
 
         if (pistaOpt.isPresent()) {
             Pista pista = pistaOpt.get();
-            pista.setJugadorEmail(pista.getJugadorEmail() != null ? pista.getJugadorEmail()+", "+email : email);
+            pista.setJugadorEmail(pista.getJugadorEmail() != null
+                    ? (!pista.getJugadorEmail().isEmpty()
+                    ? pista.getJugadorEmail() + ", " + email
+                    : email)
+                    : email);
             if (pista.getJugadorEmail().split(",").length == 4){
                 pista.setEstado(nuevoEstado);
             }

@@ -30,6 +30,7 @@ public class Reserva {
     private Integer contadorModificaciones;
     private Integer restriccionNivel;
     private String resultado;
+    private String uuid;
 
     @Transient
     private String restringir;
