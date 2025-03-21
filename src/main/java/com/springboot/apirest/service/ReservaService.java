@@ -100,6 +100,17 @@ public class ReservaService {
         return reservasFiltradas;
     }
 
+    public List<Reserva> obtenerReservasDisponiblesHistorico(Integer idUsuario) {
+        Usuario usuario = usuarioRepository.findById(idUsuario).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+        //LocalDate fechaActual = LocalDate.now();
+        Date fechaActual = Date.valueOf(LocalDate.now());
+        //LocalTime horaActual = LocalTime.now().truncatedTo(ChronoUnit.SECONDS);
+        String horaActual = LocalTime.now().truncatedTo(ChronoUnit.SECONDS).toString();
+        //return reservaRepository.findByUsuarioAndFechaReservaGreaterThanEqualAndHoraInicioGreaterThanEqual(usuario, fechaActual, horaActual);
+        List<Reserva> list =  reservaRepository.findReservasHistorico(usuario, fechaActual, horaActual);
+        return list;
+    }
+
     /**
      *
      * @param reserva

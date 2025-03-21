@@ -26,10 +26,20 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
             Usuario usuario, Date fechaReserva, String horaFin
     );
 
+    // reservas futuras
     @Query("SELECT r FROM Reserva r WHERE r.usuario = :usuario AND " +
             "(r.fechaReserva > :fechaActual OR " +
             "(r.fechaReserva = :fechaActual AND r.horaInicio >= :horaInicio))")
     List<Reserva> findReservasFuturas(@Param("usuario") Usuario usuario,
+                                      @Param("fechaActual") Date fechaActual,
+                                      @Param("horaInicio") String horaInicio);
+
+
+    //reservas ya finalizadas para historico
+    @Query("SELECT r FROM Reserva r WHERE r.usuario = :usuario AND " +
+            "(r.fechaReserva < :fechaActual OR " +
+            "(r.fechaReserva = :fechaActual AND r.horaInicio <= :horaInicio))")
+    List<Reserva> findReservasHistorico(@Param("usuario") Usuario usuario,
                                       @Param("fechaActual") Date fechaActual,
                                       @Param("horaInicio") String horaInicio);
 

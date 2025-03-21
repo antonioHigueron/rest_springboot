@@ -42,7 +42,7 @@ public class ReservasController {
 
     @GetMapping("/{id}/historico")
     public ResponseEntity<List<Reserva>> getReservaByIdHistorico(@PathVariable Integer id) {
-        List<Reserva> reservas = reservasService.obtenerReservasDisponibles(id);
+        List<Reserva> reservas = reservasService.obtenerReservasDisponiblesHistorico(id);
         if (reservas.isEmpty()) {
             return ResponseEntity.notFound().build();  // No reservas encontradas
         }
