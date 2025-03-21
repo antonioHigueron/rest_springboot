@@ -54,13 +54,13 @@ public class PistaService {
             LocalDate fechaReserva = LocalDate.parse(fechaStr);
             LocalTime horaReserva = LocalTime.parse(horaStr);
             //if (pistas.get(i).getEstado().equals("No Disponible") && pistas.get(i).getFechaHora().equals("2024-03-09 18:30:00") ){
-            if (fechaReserva.equals(fechaHoy) && horaReserva.isAfter(horaActual)){
-
+            if (fechaReserva.toString().equals(fecha) && horaReserva.isAfter(horaActual)){
+                pistaList.add(pistas.get(i));
                 //para que un mismo usuario no pueda reservar la misma pista una y otra vez
                 if (pistas.get(i).getEstado().equals("No Disponible") || (pistas.get(i).getFechaHora().substring(0,10).equals(fecha) && (pistas.get(i).getJugadorEmail() != null && pistas.get(i).getJugadorEmail().contains(email))) ){
                     pistaList.remove(pistas.get(i));
                 }
-            }pistaList.add(pistas.get(i));
+            }
         }
         pistaListTmp = new ArrayList<>(pistaList);
         //filtrar para que si la reserva esta restringida a un nivel, no se muestre a usuarios de otros niveles
