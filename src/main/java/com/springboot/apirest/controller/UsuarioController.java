@@ -17,10 +17,15 @@ public class UsuarioController {
         this.usuarioService = usuarioService;
     }
 
+
+
     @GetMapping
     public List<Usuario> listarUsuarios() {
         return usuarioService.listarUsuarios();
     }
+
+
+
 
     @GetMapping("/{id}")
     public ResponseEntity<Usuario> obtenerUsuario(@PathVariable Integer id) {
@@ -28,10 +33,16 @@ public class UsuarioController {
         return usuario.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+
+
+
     @PostMapping
     public Usuario crearUsuario(@RequestBody Usuario usuario) {
         return usuarioService.guardarUsuario(usuario);
     }
+
+
+
 
     @PutMapping("")
     public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario user) {
@@ -39,9 +50,15 @@ public class UsuarioController {
         return ResponseEntity.ok(user);
     }
 
+
+
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> eliminarUsuario(@PathVariable Integer id) {
         usuarioService.eliminarUsuario(id);
         return ResponseEntity.noContent().build();
     }
+
+
+
 }

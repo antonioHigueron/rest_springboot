@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -34,7 +35,7 @@ public class ReservasController {
     public ResponseEntity<List<Reserva>> getReservaById(@PathVariable Integer id) {
         List<Reserva> reservas = reservasService.obtenerReservasDisponibles(id);
         if (reservas.isEmpty()) {
-            return ResponseEntity.notFound().build();  // No reservas encontradas
+            return ResponseEntity.ok(new ArrayList<>());  // No reservas encontradas
         }
         return ResponseEntity.ok(reservas);  // Devolver las reservas encontradas
     }
@@ -44,7 +45,7 @@ public class ReservasController {
     public ResponseEntity<List<Reserva>> getReservaByIdHistorico(@PathVariable Integer id) {
         List<Reserva> reservas = reservasService.obtenerReservasDisponiblesHistorico(id);
         if (reservas.isEmpty()) {
-            return ResponseEntity.notFound().build();  // No reservas encontradas
+            return ResponseEntity.ok(new ArrayList<>());  // No reservas encontradas
         }
         return ResponseEntity.ok(reservas);  // Devolver las reservas encontradas
     }
