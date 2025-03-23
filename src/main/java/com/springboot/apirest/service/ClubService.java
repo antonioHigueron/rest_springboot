@@ -59,4 +59,8 @@ public class ClubService {
         });
         return reservas;
     }
+
+    public Club getOneClubByNombre(String nombre) {
+        return clubRepository.findByNombre(nombre);
+    }
 }

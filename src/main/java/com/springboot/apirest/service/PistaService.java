@@ -1,10 +1,13 @@
 package com.springboot.apirest.service;
 
 
+import com.springboot.apirest.dao.Club;
 import com.springboot.apirest.dao.Pista;
 
 import com.springboot.apirest.dao.Reserva;
 import com.springboot.apirest.dao.Usuario;
+import com.springboot.apirest.dto.PistaDto;
+import com.springboot.apirest.repository.ClubRepository;
 import com.springboot.apirest.repository.PistaRepository;
 import com.springboot.apirest.repository.ReservaRepository;
 import com.springboot.apirest.repository.UsuarioRepository;
@@ -12,10 +15,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -28,6 +35,9 @@ public class PistaService {
 
     @Autowired
     private ReservaRepository reservaRepository;
+
+    @Autowired
+    private ClubRepository clubRepository;
 
     public List<Pista> getAllPistas() {
         return pistaRepository.findAll();
@@ -81,8 +91,30 @@ public class PistaService {
         return pistaListTmp;
     }
 
-    public Pista createPista(Pista pista) {
-        return pistaRepository.save(pista);
+    public Pista createPista(Pista pista2) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime fechaActual = LocalDateTime.now();
+
+        Club club = clubRepository.getOne(pista2.getClub().getIdClub()); // Obtener el club una sola vez
+        List<Pista> listaDePistas = new ArrayList<>();
+        List<String> horarios = Arrays.asList("17:00:00", "18:30:00", "20:00:00", "21:30:00", "23:00:00");
+
+            for (int j = 0; j < 8; j++) {
+                String fechaBase = fechaActual.plusDays(j).format(formatter);
+                for (String hora : horarios) {
+                    Pista pista = new Pista();
+                    pista.setClub(club);
+                    pista.setNombrePista(pista2.getNombrePista());
+                    pista.setUbicacion(pista2.getClub().getUbicacion());
+                    pista.setTipoPista(pista2.getTipoPista());
+                    pista.setEstado("Disponible");
+                    pista.setFechaHora(fechaBase + " " + hora);
+                    listaDePistas.add(pista);
+                }
+            }
+
+        pistaRepository.saveAll(listaDePistas);
+        return pista2;
     }
 
     public boolean updatePista(Pista pista) {
@@ -133,6 +165,15 @@ public class PistaService {
         } else {
             throw new RuntimeException("Pista no encontrada con ID: " + idPista);
         }
+    }
+
+
+    public List<Pista> getPistasByIdClub(Integer idClub) {
+        List<Pista> lista = pistaRepository.findByClub_IdClub(idClub);
+        List<Pista> pistasSinDuplicados = new ArrayList<>(lista.stream()
+                .collect(Collectors.toMap(Pista::getNombrePista, pista -> pista, (p1, p2) -> p1))
+                .values());
+        return pistasSinDuplicados;
     }
 
 

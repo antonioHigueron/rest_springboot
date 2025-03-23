@@ -35,6 +35,13 @@ public class ClubController {
 
     }
 
+    @GetMapping("/{nombre}/club")
+    public ResponseEntity<Club> getOneClubByNombre(@PathVariable String nombre) {
+        String tmp = nombre.replace("%20"," ");
+        return ResponseEntity.ok(clubService.getOneClubByNombre(tmp));
+
+    }
+
     @PostMapping
     public Club createClub(@RequestBody Club club) {
         return clubService.createClub(club);
