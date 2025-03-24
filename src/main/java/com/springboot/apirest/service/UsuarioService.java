@@ -53,7 +53,7 @@ public class UsuarioService {
      */
     public Usuario guardarUsuario(Usuario usuario) {
         usuario.setFechaRegistro(new Date(System.currentTimeMillis()));
-        if (usuario.getClub() != null){
+        if (!usuario.getRol().equals("usuario")){
             //guardar club
             Club club = new Club();
             club.setNombre(usuario.getClub());
