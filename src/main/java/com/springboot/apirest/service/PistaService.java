@@ -23,6 +23,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 @Service
@@ -114,6 +115,10 @@ public class PistaService {
             }
 
         pistaRepository.saveAll(listaDePistas);
+        Usuario user = usuarioRepository.findByClub(club.getNombre());
+        String listPistas = user.getPistas().concat(", ").concat(pista2.getNombrePista());
+        user.setPistas(listPistas);
+        usuarioRepository.save(user);
         return pista2;
     }
 

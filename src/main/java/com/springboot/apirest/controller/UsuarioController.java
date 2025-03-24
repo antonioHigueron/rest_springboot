@@ -1,6 +1,5 @@
 package com.springboot.apirest.controller;
 
-import com.springboot.apirest.dao.Pista;
 import com.springboot.apirest.dao.Usuario;
 import com.springboot.apirest.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
@@ -47,6 +46,23 @@ public class UsuarioController {
     @PutMapping("")
     public ResponseEntity<Usuario> updateUsuario(@RequestBody Usuario user) {
         usuarioService.updateUsuario(user);
+        return ResponseEntity.ok(user);
+    }
+
+
+
+
+    @PutMapping("usuarioPistas")
+    public ResponseEntity<Usuario> updateUsuarioPistas(@RequestBody Usuario user) {
+        usuarioService.borrarUsuarioPista(user);//esto elimina de la lista de pistas del usuario, la pista que se selecciona para borrar
+        return ResponseEntity.ok(user);
+    }
+
+
+
+    @PutMapping("usuarioEditarPista")
+    public ResponseEntity<Usuario> usuarioEditarPista(@RequestBody Usuario user) {
+        usuarioService.editarUsuarioPista(user);
         return ResponseEntity.ok(user);
     }
 

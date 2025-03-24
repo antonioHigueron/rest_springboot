@@ -80,6 +80,48 @@ public class UsuarioService {
     }
 
 
+
+    public boolean borrarUsuarioPista(Usuario user) {
+        Usuario user1 = usuarioRepository.findByEmail(user.getEmail()).get();
+        // Expresión regular para eliminar el literal asegurando el correcto manejo de comas
+        //String regex = "\\s*,?\\s*" + user.getNuevaPista() + "\\s*,?";
+        // Reemplazo asegurando que no queden comas sobrantes
+        //String result = user1.getPistas().replaceAll(regex, ", ").replaceAll("^,\\s*|,\\s*$", null).trim();
+        List<String> list = Arrays.asList( user1.getPistas().split(","));
+        list.remove(user.getNuevaPista());
+        user1.setPistas(String.join(", ", list));
+        usuarioRepository.save(user1);
+        return true;
+    }
+
+
+
+    public boolean editarUsuarioPista(Usuario user) {
+        //Editar en tabla de usuarios, el nombre de la pista
+        Usuario user1 = usuarioRepository.findByEmail(user.getEmail()).get();
+        // Expresión regular para eliminar el literal asegurando el correcto manejo de comas
+        //String regex = "\\s*,?\\s*" + user.getNuevaPista() + "\\s*,?";
+        // Reemplazo asegurando que no queden comas sobrantes
+        //String result = user1.getPistas().replace(user.getNombre(),user.getNuevaPista());
+        List<String> list = Arrays.asList( user1.getPistas().split(","));
+        list.remove(user.getNombre());
+        list.add(user.getNuevaPista());
+        user1.setPistas(String.join(", ", list));
+        usuarioRepository.save(user1);
+
+        //Editar el nombre de la pista en la tabla pistas
+        Pista pista = new Pista();
+        pista.setNombrePista(user.getNombre());//actual
+        pista.setNuevoNombre(user.getNuevaPista());//nuevo nombre
+        ArrayList<Pista> pista1 = (ArrayList<Pista>) pistaRepository.findByNombrePista(pista.getNombrePista());
+        pista1.forEach(p ->{
+            p.setNombrePista(pista.getNuevoNombre());
+            pistaRepository.save(p);
+        });
+        return true;
+    }
+
+
     /**
      *  DELETE USER
      */
