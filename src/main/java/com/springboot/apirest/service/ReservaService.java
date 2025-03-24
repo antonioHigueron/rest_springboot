@@ -207,6 +207,7 @@ public class ReservaService {
                     .filter(email1 -> !emailsToRemove.contains(email1))
                     .collect(Collectors.joining(", "));
             pista.setJugadorEmail(output);
+            pista.setEstado("Disponible");
             pistaRepository.save(pista);
             reservaRepository.deleteById(id);
             return true;
